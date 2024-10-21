@@ -1,0 +1,19 @@
+My objective was to implement filter_blind_alleys in OCaml to clean grammars by removing non-productive rules.
+
+I faced difficulty in handling complex grammars, specifically with test case awksub_test3, where direct identification of terminal symbols was not sufficient because it was comparing two different grammars. 
+
+After multiple attempts, I altered my approach to first identify productive symbols (symbols that lead to terminals).
+
+To do that, I implemented terminal_production_check to assess if a symbol can lead to a terminal and created all_symbols_terminal_producing to check if all symbols in a rule's right-hand side (RHS) are productive.
+
+For the main implementation, I introduced update_productive_symbol_list to update the list of productive symbols while scanning grammar rules and made use of computed_fixed_point to iteratively find all productive symbols, ensuring no further changes in productive symbols set.
+This approach was particularly effective in resolving issues with awksub_test3 because of its elevated complexity. 
+
+Final Solution:
+In filter_blind_alleys, used the list of productive symbols (from compute_productive_symbols) to filter out non-productive rules.
+This method significantly improved the handling of complex grammars like those in the failing sample test case awksub_test3.
+
+From my understanding, I avoided unnecessary computations by reusing results from computed_fixed_point which means I ensured that the solution was efficient, even for grammars with multiple layers of rule dependencies.
+
+
+NOTE: I HAVE INCLUDED ADDITONAL TEST CASES FOR MY HELPER FUNCTIONS IN THE TEST FILE EVEN THOUGH THAT WAS NOT ASKED BECAUSE I USED THOSE TESTS TO ACHIEVE WHAT I HAVE MENTIONED ABOVE
